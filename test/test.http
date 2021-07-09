@@ -1,0 +1,26 @@
+@server = http://localhost:4001
+
+@me = Authorization: Basic {{$processEnv USER}}:
+
+### ------------------------------------------------------------------------
+# Services Metadata
+GET {{server}}/services/$metadata
+
+### ------------------------------------------------------------------------
+# Browse Servers as any user
+GET {{server}}/services/Servers?
+
+### ------------------------------------------------------------------------
+# Create server
+POST {{server}}/services/Servers?
+Content-Type: application/json
+
+{ 
+    "hostname" : "asm.alteaup.it"
+}
+
+### ------------------------------------------------------------------------
+# Browse Systems expand server
+GET {{server}}/services/Systems(ID=9e1dde5c-9ddb-4700-9dc9-a5108d7150d2,IsActiveEntity=false)?
+&$select=server
+&$expand=server($select=hostname)

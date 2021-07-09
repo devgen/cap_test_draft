@@ -1,0 +1,106 @@
+{
+	"_version": "1.8.0",
+	"sap.app": {
+		"id": "Products",
+		"type": "application",
+		"title": "Manage Products",
+		"description": "Products Maintenance",
+		"i18n": "i18n/i18n.properties",
+		"dataSources": {
+			"MyServices": {
+				"uri": "/services/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "4.0"
+				}
+			}
+		},
+		"-sourceTemplate": {
+			"id": "ui5template.basicSAPUI5ApplicationProject",
+			"-id": "ui5template.smartTemplate",
+			"-version": "1.40.12"
+		}
+	},
+	"sap.ui5": {
+		"dependencies": {
+			"libs": {
+				"sap.fe.templates": {}
+			}
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"uri": "i18n/i18n.properties"
+			},
+			"": {
+				"dataSource": "MyServices",
+				"settings": {
+					"synchronizationMode": "None",
+					"operationMode": "Server",
+					"autoExpandSelect": true,
+					"earlyRequests": true,
+					"groupProperties": {
+						"default": {
+							"submit": "Auto"
+						}
+					}
+				}
+			}
+		},
+		"routing": {
+			"routes": [
+				{
+					"pattern": ":?query:",
+					"name": "ProductsList",
+					"target": "ProductsList"
+				},
+				{
+					"pattern": "Products({key}):?query:",
+					"name": "SystemDetails",
+					"target": "SystemDetails"
+				}
+			],
+			"targets": {
+				"ProductsList": {
+					"type": "Component",
+					"id": "ProductsList",
+					"name": "sap.fe.templates.ListReport",
+					"options": {
+						"settings": {
+							"entitySet": "Products",
+							"navigation": {
+								"Products": {
+									"detail": {
+										"route": "SystemDetails"
+									}
+								}
+							}
+						}
+					}
+				},
+				"SystemDetails": {
+					"type": "Component",
+					"id": "SystemDetails",
+					"name": "sap.fe.templates.ObjectPage",
+					"options": {
+						"settings": {
+							"entitySet": "Products"
+						}
+					}
+				}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"fullWidth": false
+	},
+	"sap.fiori": {
+		"registrationIds": [],
+		"archeType": "transactional"
+	}
+}
