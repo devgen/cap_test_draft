@@ -25,8 +25,12 @@ using Services from '../../srv/services';
 
 // };
 
-annotate Services.Servers.action.createDraft with {
-}
+// annotate Services.Servers.action.createDraft. with @(
+
+
+	
+
+// );
 
 
 ////////////////////////////////////////////////////////////////////////////
@@ -40,7 +44,8 @@ annotate Services.Servers with @(
 			TypeNamePlural: 'Servers'
 		},
 		Identification: [
-			{Value: hostname}
+			{Value: hostname},
+			{Value: administrator.name}
 		],
 		Facets: [
 			{$Type: 'UI.ReferenceFacet', Label: 'Identification', Target: '@UI.Identification'},
@@ -62,10 +67,11 @@ annotate Services.Servers with @(
 	UI: {
 		SelectionFields: [ hostname ],
 		LineItem: [
+			{Value: administrator.name},
 			{Value: hostname},
 			{Value: ip_address},
-			{ $Type: 'UI.DataFieldForAction', Action: 'Services.EntityContainer/Servers_start', Label: 'Start',  Visible, Enabled},
-            { $Type: 'UI.DataFieldForAction', Action: 'Services.EntityContainer/Servers_stop', Label: 'Stop',  Visible, Enabled},
+			// { $Type: 'UI.DataFieldForAction', Action: 'Services.EntityContainer/Servers_start', Label: 'Start',  Visible, Enabled},
+            // { $Type: 'UI.DataFieldForAction', Action: 'Services.EntityContainer/Servers_stop', Label: 'Stop',  Visible, Enabled},
 		]
 	}
 );

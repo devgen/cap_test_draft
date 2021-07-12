@@ -1,20 +1,53 @@
 using { alteaup.solutions.systems as systems } from '../db/schema';
 
-@(path: '/services')
+@(
+    path: '/services',
+    impl : './services.js'
+)
 service Services  {
+    
     @odata.draft.enabled
+    @Common.DraftRoot.NewAction: 'Services.createDraft'
     @Common.DraftRoot.ActivationAction: 'Services.draftActivate'
-    @Common.DraftRoot.NewAction: 'Services.draftPrepare'
     entity Servers as projection on systems.Servers  actions{
         
         //@cds.odata.bindingparameter.collection
         //@cds.odata.bindingparameter.name
         
-     
+        //draftPrepare createDraft
         @cds.odata.bindingparameter.collection
-        action draftPrepare( administrator_id : String(36) ) returns Servers;
-        @cds.odata.bindingparameter.collection
-        action draftActivate( ) returns Servers;
+        action createDraft( 
+             @Common.Label : 'Administrator'
+             @Common.ValueListForValidation : 'Administrators'
+             @Common.ValueList : {
+                $Type : 'Common.ValueListType',
+                CollectionPath : 'Administrators',
+                SearchSupported : false,
+                Parameters : [
+                     {
+                        $Type : 'Common.ValueListParameterOut',
+                        LocalDataProperty : administrator,
+                        ValueListProperty : 'ID', 
+                    },
+                    {
+                        $Type : 'Common.ValueListParameterInOut',
+                        LocalDataProperty : administratorName,
+                        ValueListProperty : 'name',
+                    },
+
+                ],
+                PresentationVariantQualifier : 'Administrator_server',
+                
+                Label : 'Administrator move i18n',
+            }
+            administratorName : Administrators:name ,
+            @UI.Hidden
+            administrator : Administrators:ID not null 
+            ) returns Servers;
+        
+        //draftActivate activeteDraft
+        //@cds.odata.bindingparameter.collection
+        //action activeteDraft( ) returns Servers;
 
         @sap.applicable.path: 'startEnabled'
         action start();

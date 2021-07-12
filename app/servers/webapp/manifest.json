@@ -13,7 +13,15 @@
 				"settings": {
 					"odataVersion": "4.0"
 				}
+			},
+			"annotation01": {
+				"type": "ODataAnnotation",
+				"uri": "annotations/annotation01.xml",
+				"settings": {
+					"localUri": "annotations/annotation01.xml"
+				}
 			}
+
 		},
 		"-sourceTemplate": {
 			"id": "ui5template.basicSAPUI5ApplicationProject",
@@ -21,11 +29,17 @@
 			"-version": "1.40.12"
 		}
 	},
+	
 	"sap.ui5": {
 		"dependencies": {
 			"libs": {
 				"sap.fe.templates": {}
 			}
+		},
+		"settings": {
+			"forceGlobalRefresh": false,
+			"objectPageHeaderType": "Dynamic",
+			"showDraftToggle": true
 		},
 		"models": {
 			"i18n": {
@@ -103,4 +117,5 @@
 		"registrationIds": [],
 		"archeType": "transactional"
 	}
+	
 }

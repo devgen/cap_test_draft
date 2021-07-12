@@ -10,7 +10,7 @@ using {
 @fiori.draft.enabled
 entity Servers : cuid, managed {
         
-        
+        @UI.Hidden
         administrator : Association to one Administrators;
         @title       : 'Hostname'
         @description : 'Hostname'
@@ -82,10 +82,17 @@ entity SystemProducts : cuid {
 }
 
 annotate Systems with {
-    ID @Core.Computed;
+    ID @Core.Computed @UI.Hidden;
 };
 
 annotate SystemProducts with {
-    ID @Core.Computed;
+    ID @Core.Computed @UI.Hidden;
 }
 
+annotate Administrators with {
+    ID @Core.Computed @UI.Hidden;
+}
+
+annotate Servers with {
+    ID @Core.Computed @UI.Hidden;
+}
